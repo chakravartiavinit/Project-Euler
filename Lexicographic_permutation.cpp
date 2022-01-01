@@ -119,21 +119,21 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int n;
-    vector<int> vt;
-    while (cin >> n)
+    long long start = 1504170715041707;
+    long long mod = 4503599627370517;
+    long long MIN = start;
+    long long count = 0;
+    unsigned long long answer = start;
+    for (int i = 2; i <= 10000000; ++i)
     {
-        vt.push_back(n);
-    }
-    for (int i = 97; i <= 122; ++i)
-    {
-        string message;
-        for (int j = 0; j < vt.size(); ++j)
+        long long term = ((start % mod) * (1LL) * (i % mod)) % mod;
+        if (term < MIN)
         {
-            int x = vt[j] ^ i;
-            char alpha = (char)x;
-            message.push_back(alpha);
+            count++;
+            answer += term;
+            MIN = term;
         }
-        debug(message);
     }
+    cout << answer << "\n";
+    cout << count << "\n";
 }

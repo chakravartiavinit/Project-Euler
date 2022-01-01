@@ -111,6 +111,40 @@ void _print(map<T, V> v)
 }
 
 /*###############################################################################################################################################*/
+string ADD(string &a, string &b)
+{
+    string zero;
+    int n = a.length();
+    int m = b.length();
+    for (int i = 0; i < abs(n - m); ++i)
+    {
+        zero.push_back('0');
+    }
+    if (n > m)
+    {
+        b = zero + b;
+    }
+    else
+    {
+        a = zero + a;
+    }
+    string added_string;
+    int index = a.length() - 1, sum = 0, carry = 0;
+    while (index >= 0)
+    {
+        sum = (a[index] - '0') + (b[index] - '0') + carry;
+        carry = sum / 10;
+        sum = sum % 10;
+        added_string.push_back(sum + '0');
+        index--;
+    }
+    if (carry == 1)
+    {
+        added_string.push_back('1');
+    }
+    reverse(added_string.begin(), added_string.end());
+    return added_string;
+}
 int main()
 {
 #ifndef ONLINE_JUDGE
@@ -119,21 +153,20 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int n;
-    vector<int> vt;
-    while (cin >> n)
+    int answer = 0;
+    string num = "3";
+    string den = "2";
+    for (int i = 2; i <= 1000; ++i)
     {
-        vt.push_back(n);
-    }
-    for (int i = 97; i <= 122; ++i)
-    {
-        string message;
-        for (int j = 0; j < vt.size(); ++j)
+        string temp1 = num;
+        string temp2 = den;
+        num = ADD(num, temp2);
+        num = ADD(num, temp2);
+        den = ADD(den, temp1);
+        if (num.length() > den.length())
         {
-            int x = vt[j] ^ i;
-            char alpha = (char)x;
-            message.push_back(alpha);
+            answer++;
         }
-        debug(message);
     }
+    cout << answer << "\n";
 }
